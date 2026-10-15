@@ -7,6 +7,11 @@
 
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const imgSrc = (w) => (w.placeholder ? null : `img/${w.id}.webp`);
+  const fmt = (d) => d.replace(/-/g, '/');
+  const days = (w) => Math.round((new Date(w.period[1]) - new Date(w.period[0])) / 864e5) + 1;
+  const periodText = (w) => (w.period[0] === w.period[1] ? fmt(w.period[0]) : `${fmt(w.period[0])} 〜 ${fmt(w.period[1])}`);
+  const yen = (n) => `${n.toLocaleString('ja-JP')}円`;
+  const costText = (c) => (c.yen != null ? `${c.approx ? '約' : ''}${yen(c.yen)}${c.plus ? '以上' : ''}` : c.perUnit);
   const media = (w) => {
     const src = imgSrc(w);
     if (src) return `<img src="${src}" alt="${esc(w.title)} の画面" loading="lazy"${w.video ? ' class="wide"' : ''}>`;
@@ -24,6 +29,9 @@
     renderGrid();
   });
 
+  const known = works.filter((w) => w.cost && w.cost.yen != null);
+  $('total').textContent = `わかっている API 費用の合計 約${yen(Math.round(known.reduce((a, w) => a + w.cost.yen, 0) / 100) * 100)}（${known.length}作品）`;
+
   function renderGrid() {
     const list = filter === 'すべて' ? works : works.filter((w) => w.category === filter);
     $('count').textContent = `${list.length} 件`;
@@ -32,7 +40,7 @@
       <button type="button" class="card" data-id="${esc(w.id)}">
         <div class="thumb">${media(w)}</div>
         <h3>${esc(w.title)}</h3>
-        <p class="cat">${esc(w.category)}</p>
+        <p class="cat">${esc(w.category)} ・ ${days(w)}日間</p>
       </button>`).join('');
   }
 
@@ -45,9 +53,12 @@
     $('d-media').innerHTML = w.video
       ? `<video src="${w.video}" poster="${imgSrc(w)}" controls playsinline preload="none"></video>`
       : media(w);
-    $('d-meta').textContent = `${w.category} ・ ${w.updated.replace(/-/g, '/')} 更新`;
+    $('d-meta').textContent = w.category;
     $('d-title').textContent = w.title;
     $('d-summary').textContent = w.summary;
+    $('d-facts').innerHTML = `
+      <div><dt>制作期間</dt><dd>${periodText(w)}<span>${days(w)}日間</span></dd></div>
+      <div><dt>API費用</dt><dd>${w.cost ? `${esc(costText(w.cost))}<span>${esc(w.cost.note)}</span>` : '<span>記録なし</span>'}</dd></div>`;
     $('d-points').innerHTML = w.points.map((p) => `<li>${esc(p)}</li>`).join('');
     $('d-tech').innerHTML = w.tech.map((t) => `<li>${esc(t)}</li>`).join('');
     const links = [];

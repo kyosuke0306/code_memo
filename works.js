@@ -1,12 +1,13 @@
 // 掲載する作品の一覧。追加・削除はここを編集するだけ。
 // img: img/ 以下の画面画像（なければ自動でプレースホルダー）
+// period: 制作期間 [最初, 最後]（コミット履歴から） / cost: API費用（yen: 円, approx: 推定, plus: 「以上」）
 // url: 公開ページ / repo: GitHub リポジトリ名（private: true なら非公開としてリンクしない）
 window.WORKS = [
   {
     id: 'money_manage',
     title: 'お金の管理',
     category: 'アプリ',
-    updated: '2026-10-15',
+    period: ['2026-09-25', '2026-10-15'],
     summary: 'クレジットの引き落としを差し引いた「本当の貯金」を日付ごとに確認するアプリ。',
     points: [
       '残高・給料日・締日と引き落とし日を設定して、3回分の引き落とし額を入力',
@@ -22,7 +23,7 @@ window.WORKS = [
     id: 'anti_comment',
     title: 'Anti Comment Buster',
     category: 'ゲーム',
-    updated: '2026-10-14',
+    period: ['2026-10-14', '2026-10-14'],
     summary: '現実では言い返せないアンチコメントに、思いっきり言い返せるWebゲーム。',
     points: [
       '架空のSNS「Chirpy」に投稿 → アンチが付く → 言い返す → AIの審判が採点',
@@ -38,15 +39,16 @@ window.WORKS = [
     id: 'it_legends',
     title: 'IT Legends',
     category: 'ゲーム',
-    updated: '2026-10-12',
+    period: ['2026-10-01', '2026-10-12'],
     summary: '小さな部屋で会社を立ち上げ、時を超えて現れるITの偉人たちとチームを組んで会社を大きくする放置ゲーム。',
     points: [
       '主人公の職種を SE・プログラマー・PM・コンサルなど9種類から選ぶ',
       '仕事に人を割り当てると現実の時間で進む（閉じていても進む）',
       '自社製品の開発は流行しだいで大もうけも赤字も',
-      '条件を満たすとITの偉人（全11人）が現れて仲間になる',
+      '条件を満たすとITの偉人（全20人）が現れて仲間になる',
       'Google ログインでクラウド保存・端末間で同期',
     ],
+    cost: { yen: 3200, approx: true, note: 'Tripo 約2,000クレジット（3Dモデル20体・骨組み・動き76種）＋ Gemini 画像 約30枚。タスクの記録からの推定' },
     tech: ['three.js', 'Firebase', 'HTML / JS'],
     url: 'https://kyosuke0306.github.io/it_legends/',
     repo: 'it_legends',
@@ -55,7 +57,7 @@ window.WORKS = [
     id: 'animation_programming',
     title: '思考回路が見える C++ 学習動画',
     category: '動画',
-    updated: '2026-10-12',
+    period: ['2026-10-10', '2026-10-12'],
     summary: 'C++ の機能を1つ渡すと、「なぜそう書くのか」を見せながらコードを書いていくリール動画を自動で作るツール。',
     points: [
       '縦長・3分以内・音声なしの Instagram リール向け',
@@ -64,6 +66,7 @@ window.WORKS = [
       '書き終えたら実際に g++ でコンパイルして実行結果を見せる',
       '台本は Gemini、描画は手元の PC（Pillow + ffmpeg）',
     ],
+    cost: { perUnit: '1本あたり約2〜3円', note: 'Gemini（台本）。作った本数の記録がないため総額は不明' },
     tech: ['Python', 'Gemini API', 'Pillow', 'ffmpeg'],
     repo: 'animation_programming',
     private: true,
@@ -73,13 +76,14 @@ window.WORKS = [
     id: 'infinity_rally',
     title: 'infinity rally',
     category: '3D',
-    updated: '2026-10-10',
+    period: ['2026-10-10', '2026-10-10'],
     summary: '打ち込まれても揺さぶられても、走りまくってギリギリで返す。終わらないテニスのラリーをただ眺めるWebアプリ。',
     points: [
       'カメラ切替（TV・背後・サイド・周回・ローアングル）',
       'ギリギリの瞬間のスロー、打球音、全画面',
       '選手モデルは Gemini で参考画像 → Tripo で3D化・リグ・アニメーション',
     ],
+    cost: { yen: 150, note: 'Tripo 95クレジット（モデル・リグ・アニメ）＋ Gemini 画像1枚' },
     tech: ['Three.js', 'Tripo', 'Gemini API'],
     url: 'https://kyosuke0306.github.io/infinity_rally/',
     repo: 'infinity_rally',
@@ -88,7 +92,7 @@ window.WORKS = [
     id: 'vision_memory',
     title: 'Vision Memory',
     category: 'アプリ',
-    updated: '2026-10-08',
+    period: ['2026-10-08', '2026-10-08'],
     summary: '思いついた瞬間のビジョンを記録し、迷った時に原点へ立ち返るためのWebアプリ。',
     points: [
       'Gemini が1問ずつ質問 → 答える → ビジョンとしてまとめて保存',
@@ -104,7 +108,7 @@ window.WORKS = [
     id: 'kakarituke',
     title: 'KAKARITUKE',
     category: 'アプリ',
-    updated: '2026-10-08',
+    period: ['2026-10-08', '2026-10-08'],
     summary: 'いざという時にすぐ見られる、かかりつけ施設の診療時間アプリ。',
     points: [
       'よく行く病院・施設の診療時間をまとめて確認',
@@ -119,7 +123,7 @@ window.WORKS = [
     id: 'sit_trainsheet',
     title: '座れ！満員電車',
     category: 'ゲーム',
-    updated: '2026-10-08',
+    period: ['2026-09-28', '2026-10-08'],
     summary: '満員電車で「次の駅で降りそうな人」を見抜いて、先に座る心理戦ゲーム。',
     points: [
       '大正 → 和歌山（紀州路快速）。1戦6駅 × 3戦の合計点で勝負',
@@ -127,6 +131,7 @@ window.WORKS = [
       '席の種類で得点倍率が変わる（1人がけ×3、2人がけ×2、4人がけ×1）',
       '人・動物のモデルは Tripo、車内放送の声は Gemini の音声合成',
     ],
+    cost: { yen: 610, approx: true, plus: true, note: 'Tripo API 約400クレジット（$5チャージの残高から）。ほかに Gemini 音声合成（記録なし）' },
     tech: ['Three.js', 'Tripo', 'Gemini TTS'],
     url: 'https://kyosuke0306.github.io/sit_trainsheet/',
     repo: 'sit_trainsheet',
@@ -135,7 +140,7 @@ window.WORKS = [
     id: 'HelloWorld',
     title: 'Hello, World!',
     category: 'アプリ',
-    updated: '2026-10-07',
+    period: ['2026-09-26', '2026-10-07'],
     summary: 'いろいろなプログラミング言語で「Hello, World!」を出力する練習ができるWebアプリ。',
     points: [
       '本物そっくりの擬似ターミナルと VS Code 風の擬似エディタ',
@@ -151,13 +156,14 @@ window.WORKS = [
     id: 'animation',
     title: 'animation',
     category: '動画',
-    updated: '2026-10-06',
+    period: ['2026-10-06', '2026-10-06'],
     summary: '1930年代のラバーホース風モノクロ漫画を、画像生成から音声・字幕まで自動で組み立てたショートアニメ。',
     points: [
       'コマ画像は Gemini の画像生成（白黒・太い線のスタイルを指定）',
       '笑い声・歓声などのリアクションは Gemini の音声合成',
       'コマの合成・カメラの動き・目の動き・字幕・音のミックスまで Python で',
     ],
+    cost: { yen: 660, note: 'Gemini 画像生成 38回＋音声合成。$4.37（コストログの実測）' },
     tech: ['Python', 'Gemini API', 'Pillow', 'ffmpeg'],
     video: 'media/animation.mp4',
     repo: 'animation',
@@ -166,13 +172,14 @@ window.WORKS = [
     id: 'find_type',
     title: 'FaceMatch',
     category: 'アプリ',
-    updated: '2026-09-23',
+    period: ['2026-09-14', '2026-09-23'],
     summary: '2枚の顔から「好きなほう」を選び続けて、自分がどんな顔をタイプだと感じているかを診断するWebアプリ。',
     points: [
       '輪郭・目・眉・鼻・口・髪など14項目の「重視度」と「好み」を推定',
       '顔画像245枚を同梱、インストール不要ですぐ遊べる',
       '推定も結果の保存も端末内で完結（どこにも送信しない）',
     ],
+    cost: { yen: 3170, plus: true, note: 'Gemini 画像生成 254枚ぶんの実測。その後の追加生成は含まない' },
     tech: ['HTML / ES Modules', 'PWA'],
     url: 'https://kyosuke0306.github.io/find_type/',
     repo: 'find_type',
@@ -181,7 +188,7 @@ window.WORKS = [
     id: 'hair_karte',
     title: 'ヘアカルテ',
     category: 'アプリ',
-    updated: '2026-08-08',
+    period: ['2026-08-06', '2026-08-08'],
     summary: '美容師さんに髪型の注文を正しく伝えるためのアプリ。',
     points: [
       'どこを何ミリにしたいかが一目で伝わる「注文シート」を作って見せられる',
@@ -197,7 +204,7 @@ window.WORKS = [
     id: 'NANONI_home',
     title: 'NANONI',
     category: 'サイト',
-    updated: '2026-08-06',
+    period: ['2026-07-29', '2026-08-06'],
     summary: '愛知県蟹江町の白いちじくを使ったクラフト発泡酒ブランド「NANONI」の EC サイト。',
     points: [
       '「お酒 “なのに” 無花果」——ブランドの核になる3行をトップ・商品・About に',
@@ -213,7 +220,7 @@ window.WORKS = [
     id: 'portfolio',
     title: 'ポートフォリオサイト',
     category: 'サイト',
-    updated: '2026-08-04',
+    period: ['2026-07-26', '2026-08-04'],
     summary: 'プロフィール・スキル・経歴をまとめたポートフォリオ。編集ページから GitHub に直接公開できる。',
     points: [
       '表示内容は data.json ひとつにまとめて管理',
@@ -228,7 +235,7 @@ window.WORKS = [
     id: 'NANONI_info',
     title: 'NANONI 事業情報',
     category: 'サイト',
-    updated: '2026-08-04',
+    period: ['2026-07-30', '2026-08-04'],
     summary: 'NANONI / 24CLUB の関係者限定の事業情報サイト。パスワードを入れないと読めない。',
     points: [
       'ブランド体制・商品・原価・契約条件・在庫・課題を一覧できる内部資料',
@@ -244,7 +251,7 @@ window.WORKS = [
     id: 'program_music_for_mac',
     title: 'program_music_for_mac',
     category: '音楽',
-    updated: '2026-07-05',
+    period: ['2026-07-05', '2026-07-05'],
     summary: 'Mac でプログラムから音楽を作るプロジェクト。',
     points: [],
     tech: [],
