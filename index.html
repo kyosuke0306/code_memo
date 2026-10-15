@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Code Memo</title>
+  <meta name="description" content="kyosuke0306 が作ってきたものの一覧">
+  <meta name="theme-color" content="#f6f5f2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#141414" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <h1>Code Memo</h1>
+    <p class="sub">作ってきたもの <span id="count"></span></p>
+    <nav id="filters" class="filters" aria-label="カテゴリで絞り込み"></nav>
+  </header>
+
+  <main id="grid" class="grid"></main>
+
+  <dialog id="detail" class="detail" aria-labelledby="d-title">
+    <div class="d-inner">
+      <button class="close" id="close" aria-label="閉じる">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <div class="d-media" id="d-media"></div>
+      <div class="d-body">
+        <p class="d-meta" id="d-meta"></p>
+        <h2 id="d-title"></h2>
+        <p class="d-summary" id="d-summary"></p>
+        <ul class="d-points" id="d-points"></ul>
+        <ul class="d-tech" id="d-tech"></ul>
+        <div class="d-links" id="d-links"></div>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="works.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
