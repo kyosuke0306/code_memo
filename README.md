@@ -15,7 +15,6 @@
 
 ビルド不要の静的サイト（HTML / CSS / JS）。`index.html` をブラウザで開けば手元でも確認できます。
 
-## デプロイ
+## 公開
 
-`main` に push すると GitHub Actions で GitHub Pages に自動デプロイされます。
-初回のみ **Settings → Pages → Build and deployment → Source** を **GitHub Actions** にしてください。
+GitHub Pages の **Deploy from a branch**（`main` / `/ (root)`）で公開しています。`main` に push すると1〜2分で反映されます。
