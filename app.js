@@ -29,9 +29,6 @@
     renderGrid();
   });
 
-  const known = works.filter((w) => w.cost && w.cost.yen != null);
-  $('total').textContent = `わかっている API 費用の合計 約${yen(Math.round(known.reduce((a, w) => a + w.cost.yen, 0) / 100) * 100)}（${known.length}作品）`;
-
   function renderGrid() {
     const list = filter === 'すべて' ? works : works.filter((w) => w.category === filter);
     $('count').textContent = `${list.length} 件`;
@@ -41,6 +38,7 @@
         <div class="thumb">${media(w)}</div>
         <h3>${esc(w.title)}</h3>
         <p class="cat">${esc(w.category)} ・ ${days(w)}日間</p>
+        <p class="cost${w.cost ? '' : ' none'}">API費用 ${w.cost ? esc(costText(w.cost)) : '記録なし'}</p>
       </button>`).join('');
   }
 

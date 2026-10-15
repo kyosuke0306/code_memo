@@ -72,6 +72,8 @@ body {
 .card:focus-visible .thumb { outline: 3px solid var(--accent); outline-offset: 2px; }
 .card h3 { margin: 8px 2px 0; font-size: 15px; line-height: 1.4; }
 .card .cat { margin: 0 2px; color: var(--muted); font-size: 12px; }
+.card .cost { margin: 2px 2px 0; font-size: 12px; font-weight: 600; }
+.card .cost.none { font-weight: 400; color: var(--muted); }
 
 .ph {
   width: 100%; height: 100%; display: grid; place-content: center; text-align: center; gap: 4px;
@@ -107,7 +109,6 @@ body {
 .d-meta { margin: 0; font-size: 13px; color: var(--muted); }
 .d-body h2 { margin: 2px 0 8px; font-size: 24px; line-height: 1.3; }
 .d-summary { margin: 0 0 14px; }
-.total { font-size: 13px; }
 .d-facts { display: grid; gap: 8px; margin: 0 0 16px; padding: 12px 14px; border-radius: 12px; background: var(--chip); }
 .d-facts div { display: grid; grid-template-columns: 5em 1fr; gap: 8px; }
 .d-facts dt { color: var(--muted); font-size: 13px; padding-top: 1px; }
