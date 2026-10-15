@@ -9,7 +9,6 @@
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const imgSrc = (w) => (w.placeholder ? null : `img/${w.id}.webp`);
   const fmt = (d) => d.replace(/-/g, '/');
-  const days = (w) => Math.round((new Date(w.period[1]) - new Date(w.period[0])) / 864e5) + 1;
   const periodText = (w) => (w.period[0] === w.period[1] ? fmt(w.period[0]) : `${fmt(w.period[0])} 〜 ${fmt(w.period[1])}`);
   // 一覧用の短い表記（同じ年なら終わりの年を省く）
   const shortPeriod = (w) => {
@@ -55,7 +54,7 @@
           <div class="thumb">${media(w)}</div>
           <h3>${esc(w.title)}</h3>
           <p class="cat">${esc(w.category)}</p>
-          <p class="period">${shortPeriod(w)}<span>（${days(w)}日間）</span></p>
+          <p class="period">${shortPeriod(w)}<span>・作業${w.activeDays}日</span></p>
           <p class="cost${w.cost ? '' : ' none'}">API費用 ${w.cost ? esc(costText(w.cost)) : '記録なし'}</p>
         </button>
         ${w.url
@@ -77,7 +76,7 @@
     $('d-title').textContent = w.title;
     $('d-summary').textContent = w.summary;
     $('d-facts').innerHTML = `
-      <div><dt>制作期間</dt><dd>${periodText(w)}<span>${days(w)}日間</span></dd></div>
+      <div><dt>制作期間</dt><dd>${periodText(w)}<span>作業した日 ${w.activeDays}日</span></dd></div>
       <div><dt>API費用</dt><dd>${w.cost ? `${esc(costText(w.cost))}<span>${esc(w.cost.note)}</span>` : '<span>記録なし</span>'}</dd></div>`;
     $('d-points').innerHTML = w.points.map((p) => `<li>${esc(p)}</li>`).join('');
     $('d-tech').innerHTML = w.tech.map((t) => `<li>${esc(t)}</li>`).join('');

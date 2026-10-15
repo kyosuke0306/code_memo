@@ -1,6 +1,6 @@
 // 掲載する作品の一覧。追加・削除はここを編集するだけ。
 // img: img/ 以下の画面画像（なければ自動でプレースホルダー）
-// period: 制作期間 [最初, 最後]（コミット履歴から） / cost: API費用（yen: 円, approx: 推定, plus: 「以上」）
+// period: 制作期間 [最初, 最後]（コミット履歴から） / activeDays: 実際に作業した日数（コミットがあった日） / cost: API費用（yen: 円, approx: 推定, plus: 「以上」）
 // url: 公開ページ / repo: GitHub リポジトリ名（private: true なら非公開としてリンクしない）
 window.WORKS = [
   {
@@ -8,6 +8,7 @@ window.WORKS = [
     title: 'お金の管理',
     category: 'アプリ',
     period: ['2026-09-25', '2026-10-15'],
+    activeDays: 10,
     summary: 'クレジットの引き落としを差し引いた「本当の貯金」を日付ごとに確認するアプリ。',
     points: [
       '残高・給料日・締日と引き落とし日を設定して、3回分の引き落とし額を入力',
@@ -25,6 +26,7 @@ window.WORKS = [
     title: 'Anti Comment Buster',
     category: 'ゲーム',
     period: ['2026-10-14', '2026-10-14'],
+    activeDays: 1,
     summary: '現実では言い返せないアンチコメントに、思いっきり言い返せるWebゲーム。',
     points: [
       '架空のSNS「Chirpy」に投稿 → アンチが付く → 言い返す → AIの審判が採点',
@@ -41,6 +43,7 @@ window.WORKS = [
     title: 'IT Legends',
     category: 'ゲーム',
     period: ['2026-10-01', '2026-10-12'],
+    activeDays: 11,
     summary: '小さな部屋で会社を立ち上げ、時を超えて現れるITの偉人たちとチームを組んで会社を大きくする放置ゲーム。',
     points: [
       '主人公の職種を SE・プログラマー・PM・コンサルなど9種類から選ぶ',
@@ -59,6 +62,7 @@ window.WORKS = [
     title: '思考回路が見える C++ 学習動画',
     category: '動画',
     period: ['2026-10-10', '2026-10-12'],
+    activeDays: 2,
     summary: 'C++ の機能を1つ渡すと、「なぜそう書くのか」を見せながらコードを書いていくリール動画を自動で作るツール。',
     points: [
       '縦長・3分以内・音声なしの Instagram リール向け',
@@ -77,7 +81,8 @@ window.WORKS = [
     id: 'infinity_rally',
     title: 'infinity rally',
     category: '3D',
-    period: ['2026-10-10', '2026-10-10'],
+    period: ['2026-10-10', '2026-10-11'],
+    activeDays: 2,
     summary: '打ち込まれても揺さぶられても、走りまくってギリギリで返す。終わらないテニスのラリーをただ眺めるWebアプリ。',
     points: [
       'カメラ切替（TV・背後・サイド・周回・ローアングル）',
@@ -94,6 +99,7 @@ window.WORKS = [
     title: 'Vision Memory',
     category: 'アプリ',
     period: ['2026-10-08', '2026-10-08'],
+    activeDays: 1,
     summary: '思いついた瞬間のビジョンを記録し、迷った時に原点へ立ち返るためのWebアプリ。',
     points: [
       'Gemini が1問ずつ質問 → 答える → ビジョンとしてまとめて保存',
@@ -110,6 +116,7 @@ window.WORKS = [
     title: 'KAKARITUKE',
     category: 'アプリ',
     period: ['2026-10-08', '2026-10-08'],
+    activeDays: 1,
     summary: 'いざという時にすぐ見られる、かかりつけ施設の診療時間アプリ。',
     points: [
       'よく行く病院・施設の診療時間をまとめて確認',
@@ -125,6 +132,7 @@ window.WORKS = [
     title: '座れ！満員電車',
     category: 'ゲーム',
     period: ['2026-09-28', '2026-10-08'],
+    activeDays: 4,
     summary: '満員電車で「次の駅で降りそうな人」を見抜いて、先に座る心理戦ゲーム。',
     points: [
       '大正 → 和歌山（紀州路快速）。1戦6駅 × 3戦の合計点で勝負',
@@ -142,6 +150,7 @@ window.WORKS = [
     title: 'Hello, World!',
     category: 'アプリ',
     period: ['2026-09-26', '2026-10-07'],
+    activeDays: 2,
     summary: 'いろいろなプログラミング言語で「Hello, World!」を出力する練習ができるWebアプリ。',
     points: [
       '本物そっくりの擬似ターミナルと VS Code 風の擬似エディタ',
@@ -159,6 +168,7 @@ window.WORKS = [
     title: 'animation',
     category: '動画',
     period: ['2026-10-06', '2026-10-06'],
+    activeDays: 1,
     summary: '1930年代のラバーホース風モノクロ漫画を、画像生成から音声・字幕まで自動で組み立てたショートアニメ。',
     points: [
       'コマ画像は Gemini の画像生成（白黒・太い線のスタイルを指定）',
@@ -174,7 +184,8 @@ window.WORKS = [
     id: 'find_type',
     title: 'FaceMatch',
     category: 'アプリ',
-    period: ['2026-09-14', '2026-09-23'],
+    period: ['2026-09-14', '2026-09-24'],
+    activeDays: 8,
     summary: '2枚の顔から「好きなほう」を選び続けて、自分がどんな顔をタイプだと感じているかを診断するWebアプリ。',
     points: [
       '輪郭・目・眉・鼻・口・髪など14項目の「重視度」と「好み」を推定',
@@ -191,6 +202,7 @@ window.WORKS = [
     title: 'ヘアカルテ',
     category: 'アプリ',
     period: ['2026-08-06', '2026-08-08'],
+    activeDays: 3,
     summary: '美容師さんに髪型の注文を正しく伝えるためのアプリ。',
     points: [
       'どこを何ミリにしたいかが一目で伝わる「注文シート」を作って見せられる',
@@ -208,6 +220,7 @@ window.WORKS = [
     title: 'NANONI',
     category: 'サイト',
     period: ['2026-07-29', '2026-08-06'],
+    activeDays: 5,
     summary: '愛知県蟹江町の白いちじくを使ったクラフト発泡酒ブランド「NANONI」の EC サイト。',
     points: [
       '「お酒 “なのに” 無花果」——ブランドの核になる3行をトップ・商品・About に',
@@ -224,7 +237,8 @@ window.WORKS = [
     id: 'portfolio',
     title: 'ポートフォリオサイト',
     category: 'サイト',
-    period: ['2026-07-26', '2026-08-04'],
+    period: ['2026-07-26', '2026-08-05'],
+    activeDays: 2,
     summary: 'プロフィール・スキル・経歴をまとめたポートフォリオ。編集ページから GitHub に直接公開できる。',
     points: [
       '表示内容は data.json ひとつにまとめて管理',
@@ -240,7 +254,8 @@ window.WORKS = [
     id: 'NANONI_info',
     title: 'NANONI 事業情報',
     category: 'サイト',
-    period: ['2026-07-30', '2026-08-04'],
+    period: ['2026-07-30', '2026-08-05'],
+    activeDays: 6,
     summary: 'NANONI / 24CLUB の関係者限定の事業情報サイト。パスワードを入れないと読めない。',
     points: [
       'ブランド体制・商品・原価・契約条件・在庫・課題を一覧できる内部資料',
@@ -257,6 +272,7 @@ window.WORKS = [
     title: 'program_music_for_mac',
     category: '音楽',
     period: ['2026-07-05', '2026-07-05'],
+    activeDays: 1,
     summary: 'Mac でプログラムから音楽を作るプロジェクト。',
     points: [],
     tech: [],
