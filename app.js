@@ -25,8 +25,19 @@
     return `<div class="ph"><b>${esc(p.label || w.title)}</b><span>${esc(p.sub || '')}</span></div>`;
   };
 
+  // お気に入り（この端末のブラウザに保存）
+  const FAV_KEY = 'code_memo.favorites';
+  const FAV = '★ お気に入り';
+  let favs = new Set();
+  try { favs = new Set(JSON.parse(localStorage.getItem(FAV_KEY) || '[]')); } catch (e) { /* 保存できない環境では空のまま */ }
+  const toggleFav = (id) => {
+    if (favs.has(id)) favs.delete(id); else favs.add(id);
+    try { localStorage.setItem(FAV_KEY, JSON.stringify([...favs])); } catch (e) { /* 無視 */ }
+  };
+  const starBtn = (w, cls) => `<button type="button" class="${cls}" data-fav="${esc(w.id)}" aria-pressed="${favs.has(w.id)}" aria-label="${esc(w.title)} をお気に入り${favs.has(w.id) ? 'から外す' : 'に追加'}">${favs.has(w.id) ? '★' : '☆'}</button>`;
+
   // フィルター
-  const cats = ['すべて', ...new Set(works.map((w) => w.category))];
+  const cats = ['すべて', FAV, ...new Set(works.map((w) => w.category))];
   $('filters').innerHTML = cats.map((c) => `<button type="button" data-cat="${esc(c)}">${esc(c)}</button>`).join('');
   $('filters').addEventListener('click', (e) => {
     const b = e.target.closest('button');
@@ -43,13 +54,14 @@
   });
 
   function renderGrid() {
-    const list = (filter === 'すべて' ? works : works.filter((w) => w.category === filter)).slice()
+    const list = (filter === 'すべて' ? works : works.filter((w) => (filter === FAV ? favs.has(w.id) : w.category === filter))).slice()
       .sort((x, y) => (x.period[0] + x.period[1]).localeCompare(y.period[0] + y.period[1]) * (order === 'new' ? -1 : 1));
     $('count').textContent = `${list.length} 件`;
     $('filters').querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', b.dataset.cat === filter));
     $('sort').querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', b.dataset.order === order));
     grid.innerHTML = list.map((w) => `
       <div class="card">
+        ${starBtn(w, 'fav-btn')}
         <button type="button" class="card-main" data-id="${esc(w.id)}">
           <div class="thumb">${media(w)}</div>
           <h3>${esc(w.title)}</h3>
@@ -60,10 +72,12 @@
         ${w.url
           ? `<a class="card-open" href="${w.url}" target="_blank" rel="noopener" aria-label="${esc(w.title)} を開く">開く ↗</a>`
           : `<span class="card-open none">${w.video ? '動画は詳細で再生' : '公開ページなし'}</span>`}
-      </div>`).join('');
+      </div>`).join('') || `<p class="empty">${filter === FAV ? '☆ を押すとお気に入りに追加できます' : '作品がありません'}</p>`;
   }
 
   grid.addEventListener('click', (e) => {
+    const f = e.target.closest('[data-fav]');
+    if (f) { toggleFav(f.dataset.fav); renderGrid(); return; }
     const c = e.target.closest('.card-main');
     if (c) location.hash = c.dataset.id;
   });
@@ -84,6 +98,7 @@
     if (w.url) links.push(`<a class="btn primary" href="${w.url}" target="_blank" rel="noopener">開く ↗</a>`);
     if (w.repo && !w.private) links.push(`<a class="btn" href="https://github.com/kyosuke0306/${w.repo}" target="_blank" rel="noopener">GitHub</a>`);
     if (w.private) links.push('<span class="note">非公開リポジトリ</span>');
+    links.push(starBtn(w, 'btn fav-detail'));
     $('d-links').innerHTML = links.join('');
     if (!dialog.open) dialog.showModal();
     dialog.scrollTop = 0;
@@ -104,6 +119,20 @@
   dialog.addEventListener('cancel', (e) => { e.preventDefault(); closeDetail(); });
   dialog.addEventListener('close', () => { const v = dialog.querySelector('video'); if (v) v.pause(); });
   window.addEventListener('hashchange', route);
+  $('d-links').addEventListener('click', (e) => {
+    const f = e.target.closest('[data-fav]');
+    if (!f) return;
+    toggleFav(f.dataset.fav);
+    f.outerHTML = starBtn(works.find((w) => w.id === f.dataset.fav), 'btn fav-detail');
+    renderGrid();
+  });
+
+  // 画面上部へ戻るボタン（少しスクロールしたら出す）
+  const toTop = $('to-top');
+  const onScroll = () => toTop.classList.toggle('show', window.scrollY > 400);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  onScroll();
 
   renderGrid();
   route();
