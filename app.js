@@ -50,17 +50,22 @@
     $('filters').querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', b.dataset.cat === filter));
     $('sort').querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', b.dataset.order === order));
     grid.innerHTML = list.map((w) => `
-      <button type="button" class="card" data-id="${esc(w.id)}">
-        <div class="thumb">${media(w)}</div>
-        <h3>${esc(w.title)}</h3>
-        <p class="cat">${esc(w.category)}</p>
-        <p class="period">${shortPeriod(w)}<span>（${days(w)}日間）</span></p>
-        <p class="cost${w.cost ? '' : ' none'}">API費用 ${w.cost ? esc(costText(w.cost)) : '記録なし'}</p>
-      </button>`).join('');
+      <div class="card">
+        <button type="button" class="card-main" data-id="${esc(w.id)}">
+          <div class="thumb">${media(w)}</div>
+          <h3>${esc(w.title)}</h3>
+          <p class="cat">${esc(w.category)}</p>
+          <p class="period">${shortPeriod(w)}<span>（${days(w)}日間）</span></p>
+          <p class="cost${w.cost ? '' : ' none'}">API費用 ${w.cost ? esc(costText(w.cost)) : '記録なし'}</p>
+        </button>
+        ${w.url
+          ? `<a class="card-open" href="${w.url}" target="_blank" rel="noopener" aria-label="${esc(w.title)} を開く">開く ↗</a>`
+          : `<span class="card-open none">${w.video ? '動画は詳細で再生' : '公開ページなし'}</span>`}
+      </div>`).join('');
   }
 
   grid.addEventListener('click', (e) => {
-    const c = e.target.closest('.card');
+    const c = e.target.closest('.card-main');
     if (c) location.hash = c.dataset.id;
   });
 
