@@ -14,7 +14,13 @@
   <header class="top">
     <h1>Code Memo</h1>
     <p class="sub">作ってきたもの <span id="count"></span></p>
-    <nav id="filters" class="filters" aria-label="カテゴリで絞り込み"></nav>
+    <div class="bar">
+      <nav id="filters" class="filters" aria-label="カテゴリで絞り込み"></nav>
+      <div id="sort" class="sort" role="group" aria-label="並び順">
+        <button type="button" data-order="new">新しい順</button>
+        <button type="button" data-order="old">古い順</button>
+      </div>
+    </div>
   </header>
 
   <main id="grid" class="grid"></main>

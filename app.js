@@ -4,12 +4,19 @@
   const grid = $('grid');
   const dialog = $('detail');
   let filter = 'すべて';
+  let order = 'new';
 
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const imgSrc = (w) => (w.placeholder ? null : `img/${w.id}.webp`);
   const fmt = (d) => d.replace(/-/g, '/');
   const days = (w) => Math.round((new Date(w.period[1]) - new Date(w.period[0])) / 864e5) + 1;
   const periodText = (w) => (w.period[0] === w.period[1] ? fmt(w.period[0]) : `${fmt(w.period[0])} 〜 ${fmt(w.period[1])}`);
+  // 一覧用の短い表記（同じ年なら終わりの年を省く）
+  const shortPeriod = (w) => {
+    const [a, b] = w.period;
+    if (a === b) return fmt(a);
+    return `${fmt(a)}〜${a.slice(0, 4) === b.slice(0, 4) ? fmt(b.slice(5)) : fmt(b)}`;
+  };
   const yen = (n) => `${n.toLocaleString('ja-JP')}円`;
   const costText = (c) => (c.yen != null ? `${c.approx ? '約' : ''}${yen(c.yen)}${c.plus ? '以上' : ''}` : c.perUnit);
   const media = (w) => {
@@ -29,15 +36,25 @@
     renderGrid();
   });
 
+  $('sort').addEventListener('click', (e) => {
+    const b = e.target.closest('button');
+    if (!b) return;
+    order = b.dataset.order;
+    renderGrid();
+  });
+
   function renderGrid() {
-    const list = filter === 'すべて' ? works : works.filter((w) => w.category === filter);
+    const list = (filter === 'すべて' ? works : works.filter((w) => w.category === filter)).slice()
+      .sort((x, y) => (x.period[0] + x.period[1]).localeCompare(y.period[0] + y.period[1]) * (order === 'new' ? -1 : 1));
     $('count').textContent = `${list.length} 件`;
     $('filters').querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', b.dataset.cat === filter));
+    $('sort').querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', b.dataset.order === order));
     grid.innerHTML = list.map((w) => `
       <button type="button" class="card" data-id="${esc(w.id)}">
         <div class="thumb">${media(w)}</div>
         <h3>${esc(w.title)}</h3>
-        <p class="cat">${esc(w.category)} ・ ${days(w)}日間</p>
+        <p class="cat">${esc(w.category)}</p>
+        <p class="period">${shortPeriod(w)}<span>（${days(w)}日間）</span></p>
         <p class="cost${w.cost ? '' : ' none'}">API費用 ${w.cost ? esc(costText(w.cost)) : '記録なし'}</p>
       </button>`).join('');
   }
