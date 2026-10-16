@@ -4,6 +4,23 @@
 // url: 公開ページ / repo: GitHub リポジトリ名（private: true なら非公開としてリンクしない）
 window.WORKS = [
   {
+    id: 'CRANE_TACTICS',
+    title: 'CRANE TACTICS',
+    category: 'アプリ',
+    period: ['2026-10-16', '2026-10-17'],
+    activeDays: 2,
+    summary: 'クレーンゲームの台の写真から、いっしょに作戦を考えるWebアプリ。',
+    points: [
+      '写真を送ると Gemini が景品・落とし口・障害物の位置を読み取る',
+      '写真の上に「アームを下ろす位置（◎）」と「景品を動かす方向（→）」を描いて手順を示す',
+      '印がずれていたら指でドラッグして直し、その位置で作戦を立て直せる',
+      'プレイ結果（動いた／動かない など）を入れると、次の手を考え直す',
+    ],
+    tech: ['TypeScript', 'Vite', 'Gemini API', 'Cloudflare Workers'],
+    url: 'https://kyosuke0306.github.io/CRANE_TACTICS/',
+    repo: 'CRANE_TACTICS',
+  },
+  {
     id: 'money_manage',
     title: 'お金の管理',
     category: 'アプリ',
