@@ -37,8 +37,13 @@
   const starBtn = (w, cls) => `<button type="button" class="${cls}" data-fav="${esc(w.id)}" aria-pressed="${favs.has(w.id)}" aria-label="${esc(w.title)} をお気に入り${favs.has(w.id) ? 'から外す' : 'に追加'}">${favs.has(w.id) ? '★' : '☆'}</button>`;
 
   // フィルター
-  const cats = ['すべて', FAV, ...new Set(works.map((w) => w.category))];
-  $('filters').innerHTML = cats.map((c) => `<button type="button" data-cat="${esc(c)}">${esc(c)}</button>`).join('');
+  // お気に入りがあるときは「すべて」より先に並べ、最初もお気に入りを表示する
+  const categories = [...new Set(works.map((w) => w.category))];
+  const renderFilters = () => {
+    const cats = favs.size ? [FAV, 'すべて', ...categories] : ['すべて', FAV, ...categories];
+    $('filters').innerHTML = cats.map((c) => `<button type="button" data-cat="${esc(c)}">${esc(c)}</button>`).join('');
+  };
+  if (favs.size) filter = FAV;
   $('filters').addEventListener('click', (e) => {
     const b = e.target.closest('button');
     if (!b) return;
@@ -57,6 +62,7 @@
     const list = (filter === 'すべて' ? works : works.filter((w) => (filter === FAV ? favs.has(w.id) : w.category === filter))).slice()
       .sort((x, y) => (x.period[0] + x.period[1]).localeCompare(y.period[0] + y.period[1]) * (order === 'new' ? -1 : 1));
     $('count').textContent = `${list.length} 件`;
+    renderFilters();
     $('filters').querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', b.dataset.cat === filter));
     $('sort').querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', b.dataset.order === order));
     grid.innerHTML = list.map((w) => `
