@@ -4,6 +4,25 @@
 // url: 公開ページ / repo: GitHub リポジトリ名（private: true なら非公開としてリンクしない）
 window.WORKS = [
   {
+    id: 'HOWtoGit',
+    title: 'HOW to Git',
+    category: 'アプリ',
+    period: ['2026-10-17', '2026-10-17'],
+    activeDays: 1,
+    summary: 'Git の使い方を、初心者向けにゲーム感覚で学べる Git シミュレーター。',
+    points: [
+      '疑似ターミナルで本物そっくりの Git コマンドを打ち、ブランチ図がリアルタイムに動く',
+      'ボタンでコマンドを組み立てるか、PC 風キーボードで打つかを切り替えられる',
+      '「コマンドを覚える」は全20面のパズル。ゴールのブランチ図と同じ形にする',
+      '「チーム開発」では仲間から依頼が届き、どのコマンドを使うか自分で判断する',
+      '行単位の 3-way マージで本物同様に競合し、エディタで解決できる',
+      'わからないときは Gemini に質問できる',
+    ],
+    tech: ['HTML / ES Modules', 'Gemini API', 'PWA'],
+    url: 'https://kyosuke0306.github.io/HOWtoGit/',
+    repo: 'HOWtoGit',
+  },
+  {
     id: 'CRANE_TACTICS',
     title: 'CRANE TACTICS',
     category: 'アプリ',
